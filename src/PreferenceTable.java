@@ -6,6 +6,7 @@
 
 import java.io.*;
 import java.util.*;
+import java.util.Random;
 
 public class PreferenceTable {
 	Hashtable<Integer,StudentEntry> studentLookUp = new Hashtable<Integer,StudentEntry>();
@@ -47,12 +48,6 @@ public class PreferenceTable {
 			}
 			tempStu.setOriginalPreferences(arrayOfPref);
 			
-			//TestingCode
-			/*System.out.println(tempStu.getOrderedPreferences());
-			System.out.println(tempStu.getNumberOfStatedPreferences());
-			System.out.println(tempStu.hasPreassignedProject());
-			System.out.println("");*/
-			
 			studentLookUp.put(i-1,tempStu); 
 		}
 	}
@@ -71,6 +66,28 @@ public class PreferenceTable {
 			return null;
 		}
 	}
+	public StudentEntry getRandomStudent(){
+		Random randomObj = new Random();
+		int randomInt = randomObj.nextInt(studentLookUp.size()) + 0;
+		return studentLookUp.get(randomInt);
+	}
+	public String getRandomPreference(){
+		StudentEntry randomStudent = this.getRandomStudent();
+		return randomStudent.getRandomPreference();
+	}
+	public void fillPreferencesOfAll(int maxPrefs){
+		for(int i=0;i<studentLookUp.size();i++){
+			StudentEntry currStu = studentLookUp.get(i);
+			if(!(currStu.hasPreassignedProject())){
+			while(currStu.numberOfPreferences() < maxPrefs){
+				String randPref = this.getRandomPreference();
+				if(!(currStu.hasPreference(randPref))){
+					currStu.addProject(randPref);
+				}
+			}		
+		}
+		}	
+	}
 	/*
 	 * Testing Code (main)
 	 */
@@ -86,5 +103,16 @@ public class PreferenceTable {
 		System.out.println(p.getEntryFor(3).getOrderedPreferences() + "\n");
 		System.out.println(p.getEntryFor(4).getStudentName()); //Red Sonja
 		System.out.println(p.getEntryFor(4).getOrderedPreferences() + "\n");
+		System.out.println("Random student test: " + p.getRandomStudent().getStudentName());
+		System.out.println("Random preference: " + p.getRandomPreference());
+		for(int i=0;i<50;i++){
+			System.out.println(p.getEntryFor(i).getStudentName() + ": " + p.getEntryFor(i).numberOfPreferences()); 
+		}
+		System.out.println("\nFILLING PREFERENCES\n");
+		p.fillPreferencesOfAll(10);
+		for(int i=0;i<50;i++){
+			System.out.println(p.getEntryFor(i).getStudentName() + ": " + p.getEntryFor(i).numberOfPreferences());
+		}
+		
 	}
 }

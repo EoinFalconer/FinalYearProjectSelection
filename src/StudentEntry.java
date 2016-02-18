@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.Random;
 public class StudentEntry {
 	String studentName = "";
 	boolean hasPreassigned = false;
@@ -53,9 +54,19 @@ public class StudentEntry {
 		return originalNumberOfPreferences;
 	}
 	public void addProject(String pname){
-		if(preferences.size() <= originalNumberOfPreferences){
-			preferences.add(pname); 		//adding to the end of preferences.
-		}
+		//System.out.println(preferences.size());
+			preferences.add(pname.intern());		//adding to the end of preferences.
+		
 	}
-	
+	public String getRandomPreference(){
+		Random randint = new Random();
+		int randomInt = randint.nextInt(preferences.size()) + 0;
+		return preferences.get(randomInt);
+	}
+	public boolean hasPreference(String preference){
+		return this.getOrderedPreferences().contains(preference);
+	}
+	public int numberOfPreferences(){
+		return preferences.size();
+	}
 }
