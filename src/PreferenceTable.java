@@ -88,31 +88,5 @@ public class PreferenceTable {
 		}
 		}	
 	}
-	/*
-	 * Testing Code (main)
-	 */
-	public static void main(String[] args){
-		PreferenceTable p = new PreferenceTable("Project_allocation_data.txt");
-		System.out.println(p.getEntryFor(0).getStudentName()); //Loki Laufeyson
-		System.out.println(p.getEntryFor(0).getOrderedPreferences() + "\n");
-		System.out.println(p.getEntryFor(1).getStudentName()); //Richard B. Riddick
-		System.out.println(p.getEntryFor(1).getOrderedPreferences() + "\n");
-		System.out.println(p.getEntryFor(2).getStudentName()); //Alan Turing
-		System.out.println(p.getEntryFor(2).getOrderedPreferences() + "\n");
-		System.out.println(p.getEntryFor(3).getStudentName()); //Conan the Barbarian
-		System.out.println(p.getEntryFor(3).getOrderedPreferences() + "\n");
-		System.out.println(p.getEntryFor(4).getStudentName()); //Red Sonja
-		System.out.println(p.getEntryFor(4).getOrderedPreferences() + "\n");
-		System.out.println("Random student test: " + p.getRandomStudent().getStudentName());
-		System.out.println("Random preference: " + p.getRandomPreference());
-		for(int i=0;i<50;i++){
-			System.out.println(p.getEntryFor(i).getStudentName() + ": " + p.getEntryFor(i).numberOfPreferences()); 
-		}
-		System.out.println("\nFILLING PREFERENCES\n");
-		p.fillPreferencesOfAll(10);
-		for(int i=0;i<50;i++){
-			System.out.println(p.getEntryFor(i).getStudentName() + ": " + p.getEntryFor(i).numberOfPreferences());
-		}
-		
-	}
+
 }
