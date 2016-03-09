@@ -1,5 +1,6 @@
 import java.util.*;
 public class CandidateSolution {
+	int currentEnergy;
 	ArrayList<CandidateAssignment> list = new ArrayList<CandidateAssignment>();
 	public CandidateSolution(PreferenceTable pref){
 		StudentEntry[] entries = pref.getAllStudentEntries();
@@ -21,10 +22,45 @@ public class CandidateSolution {
 		int random = randObj.nextInt(list.size()) + 0;
 		return list.get(random).getStudentAssignment();
 	}
+	public int getEnergy(Vector<String> allPrefs){
+		Vector<String> canBeAdded = allPrefs;
+		
+		int collisions = 0;
+		boolean flag = false;
+		for(int i=0;i<list.size();i++){
+			flag = false;
+			while(!flag){
+				if(canBeAdded.contains(list.get(i).getStudentAssignment())){
+					//System.out.println(canBeAdded.size());
+					canBeAdded.remove(list.get(i).getStudentAssignment());
+					flag = true;
+				}else{
+					list.get(i).randomizeAssignment();
+					if(canBeAdded.contains(list.get(i).getStudentAssignment())){
+						flag = true;
+					}
+					collisions = collisions + 1000;
+				}
+			}
+		}
+		int energyTotal = 0;
+		for(int i=0;i<list.size();i++){
+			energyTotal = energyTotal + list.get(i).getEnergy();
+		}
+		currentEnergy = energyTotal + collisions;
+		return energyTotal + collisions;
+	}
+	public int getFitness(){
+		return currentEnergy * -1;
+	}
 	public static void main(String[] args){
 		PreferenceTable p = new PreferenceTable("Project_allocation_data.txt");
-		p.fillPreferencesOfAll(10);
-		CandidateSolution sol = new CandidateSolution(p);
-		System.out.println(sol.getRandomAssignment());
+		
+			CandidateSolution sol = new CandidateSolution(p);
+			System.out.println("Finding Energy...");
+			System.out.println("Energy: " + sol.getEnergy(p.getAllPrefs()));
+			System.out.println("Fitness: " + sol.getFitness());
+		
 	}
-}
+}	
+

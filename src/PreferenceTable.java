@@ -10,6 +10,7 @@ import java.util.Random;
 
 public class PreferenceTable {
 	Hashtable<Integer,StudentEntry> studentLookUp = new Hashtable<Integer,StudentEntry>();
+	Vector<String> allPreferences = new Vector<String>();
 	public PreferenceTable(String file){
 		Vector<Vector<String>> v = this.loadContentFromFile(file);
 		this.createStudentEntries(v);	//makes all the studentEntry objects and puts them in the hashtable
@@ -43,6 +44,9 @@ public class PreferenceTable {
 			String[] arrayOfPref = new String[tempVect.size() - 2];
 			int arrayIterator = 0;
 			for(int j=2;j<tempVect.size();j++){
+				if(!allPreferences.contains((String)tempVect.get(j))){
+					allPreferences.add(tempVect.get(j));
+				}
 				arrayOfPref[arrayIterator] = (String)tempVect.get(j);
 				arrayIterator++;
 			}
@@ -87,6 +91,9 @@ public class PreferenceTable {
 			}		
 		}
 		}	
+	}
+	public Vector<String> getAllPrefs(){
+		return allPreferences;
 	}
 
 }

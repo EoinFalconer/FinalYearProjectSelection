@@ -69,4 +69,12 @@ public class StudentEntry {
 	public int numberOfPreferences(){
 		return preferences.size();
 	}
+	public int getRanking(String pref){
+		for(int i=0;i<preferences.size();i++){
+			if(pref.equals(preferences.get(i))){
+				return i;
+			}
+		}
+		return -1;
+	}
 }

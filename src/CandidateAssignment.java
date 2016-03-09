@@ -9,7 +9,7 @@ public class CandidateAssignment {
 		/*
 		 * Testing code to see whether it works
 		 */
-		System.out.println("Name: " + student.getStudentName() + " \nAssignment: " + assignment + "\n");
+		//System.out.println("Name: " + student.getStudentName() + " \nAssignment: " + assignment + "\n");
 	}
 	public void randomizeAssignment(){
 		if(assignment != null){
@@ -25,5 +25,13 @@ public class CandidateAssignment {
 	}
 	public StudentEntry getStudentEntry(){
 		return student;
+	}
+	public int getEnergy(){
+		int ranking = student.getRanking(assignment);
+		return (ranking + 1) * (ranking * 1);
+	}
+	public void changeAssignment(String ass){
+		prevAssignment = assignment;
+		assignment = ass;
 	}
 }	
